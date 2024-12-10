@@ -32,6 +32,7 @@ public class TreeServices {
     return newTree.getPostingId();
   }
 
+
   private void saveNodes(Node root) {
     if (root != null) {
       nodeServices.createNode(root);
