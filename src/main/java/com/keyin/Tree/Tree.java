@@ -36,30 +36,13 @@ public class Tree {
     return root;
   }
 
-  public void printInOrder() {
-    recursivePrintInOrder(root);
+
+
+  public Long getPostingId() {
+    return postingId;
   }
 
-  private void recursivePrintInOrder(Node root) {
-    if (root != null) {
-      recursivePrintInOrder(root.getLeft());
-      System.out.print(root.getValue() + " ");
-      recursivePrintInOrder(root.getRight());
-    }
+  public Node getRoot() {
+    return root;
   }
-
-  public static void main(String[] args) {
-    Tree testTree = new Tree();
-    testTree.add(5);
-    testTree.add(12);
-    testTree.add(7);
-    testTree.add(9);
-    testTree.add(25);
-    testTree.add(1);
-    testTree.add(10);
-    testTree.add(8);
-    testTree.printInOrder();
-
-  }
-
 }
