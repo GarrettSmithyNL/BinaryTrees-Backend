@@ -1,6 +1,6 @@
-package com.keyin.Tree;
+package com.keyin.Domain.Tree;
 
-import com.keyin.Node.Node;
+import com.keyin.Domain.Node.Node;
 import jakarta.persistence.*;
 
 @Entity

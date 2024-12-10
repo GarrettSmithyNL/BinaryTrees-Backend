@@ -1,4 +1,4 @@
-package com.keyin.Input;
+package com.keyin.Domain.Input;
 
 import org.springframework.data.repository.CrudRepository;
 

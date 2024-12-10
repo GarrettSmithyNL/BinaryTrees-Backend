@@ -1,8 +1,8 @@
-package com.keyin.Tree;
+package com.keyin.Domain.Tree;
 
-import com.keyin.Input.InputServices;
-import com.keyin.Node.Node;
-import com.keyin.Node.NodeServices;
+import com.keyin.Domain.Input.InputServices;
+import com.keyin.Domain.Node.Node;
+import com.keyin.Domain.Node.NodeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

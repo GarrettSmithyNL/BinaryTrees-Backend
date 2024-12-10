@@ -1,4 +1,4 @@
-package com.keyin.Tree;
+package com.keyin.Domain.Tree;
 
 import org.springframework.data.repository.CrudRepository;
 

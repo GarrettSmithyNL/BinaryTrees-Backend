@@ -1,4 +1,4 @@
-package com.keyin.Node;
+package com.keyin.Domain.Node;
 
 import jakarta.persistence.*;
 
