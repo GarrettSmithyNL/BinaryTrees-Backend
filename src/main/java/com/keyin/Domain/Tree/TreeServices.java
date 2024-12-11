@@ -21,23 +21,35 @@ public class TreeServices {
     this.nodeServices = nodeServices;
   }
 
-  public Long createTreeFromInput(Long inputId) {
+  public Tree createTreeFromInput(Long inputId) {
     List<Integer> inputFromDb = inputServices.getInput(inputId).getInputs();
     Tree newTree = new Tree();
+    Node treeRoot = newTree.getRoot();
     for(Integer value : inputFromDb) {
-      newTree.add(value);
+      Node newNode = new Node();
+      newNode.setValue(value);
+      treeRoot = add(treeRoot, newNode);
     }
-    newTree = treeRepository.save(newTree);
-    saveNodes(newTree.getRoot());
-    return newTree.getPostingId();
+    newTree.setRoot(treeRoot);
+    return treeRepository.save(newTree);
+  }
+
+  private Node add(Node root, Node newNode) {
+    if (root == null) {
+      root = nodeServices.createNode(newNode);
+      return root;
+    }
+
+    if (newNode.getValue() > root.getValue()) {
+      root.setRight(add(root.getRight(), newNode));
+      nodeServices.createNode(root.getRight());
+    } else if (newNode.getValue() < root.getValue()) {
+      root.setLeft(add(root.getLeft(), newNode));
+      nodeServices.createNode(root.getLeft());
+    }
+    return root;
   }
 
 
-  private void saveNodes(Node root) {
-    if (root != null) {
-      nodeServices.createNode(root);
-      saveNodes(root.getLeft());
-      saveNodes(root.getRight());
-    }
-  }
+
 }

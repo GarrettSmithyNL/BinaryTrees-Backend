@@ -11,32 +11,13 @@ public class Tree {
   @GeneratedValue(generator = "tree_sequence")
   private Long postingId;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "rood_id")
   private Node root;
 
   public Tree () {
     this.root = null;
   }
-
-  public void add(int value) {
-    root = recursiveAdd(root, value);
-  }
-
-  private Node recursiveAdd(Node root, int value) {
-    if (root == null) {
-      root = new Node(value);
-      return root;
-    }
-
-    if (value > root.getValue())
-      root.setRight(recursiveAdd(root.getRight(), value));
-    else if (value < root.getValue())
-      root.setLeft(recursiveAdd(root.getLeft(), value));
-
-    return root;
-  }
-
-
 
   public Long getPostingId() {
     return postingId;
@@ -44,5 +25,9 @@ public class Tree {
 
   public Node getRoot() {
     return root;
+  }
+
+  public void setRoot(Node root) {
+    this.root = root;
   }
 }
