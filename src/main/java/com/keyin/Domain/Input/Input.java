@@ -1,5 +1,6 @@
 package com.keyin.Domain.Input;
 
+import com.keyin.Domain.Tree.Tree;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,11 +16,26 @@ public class Input {
   @ElementCollection
   private List<Integer> inputs;
 
+  @OneToOne
+  private Tree treeFromInput;
+
+  public Long getPostingId() {
+    return postingId;
+  }
+
   public List<Integer> getInputs() {
     return inputs;
   }
 
   public void setInputs(List<Integer> inputs) {
     this.inputs = inputs;
+  }
+
+  public Tree getTreeFromInput() {
+    return treeFromInput;
+  }
+
+  public void setTreeFromInput(Tree treeFromInput) {
+    this.treeFromInput = treeFromInput;
   }
 }

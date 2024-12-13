@@ -3,6 +3,8 @@ package com.keyin.Domain.Input;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/input")
 public class InputController {
@@ -16,5 +18,15 @@ public class InputController {
   @PostMapping("/post")
   public Input postInput(@RequestBody Input input) {
     return inputServices.addInput(input);
+  }
+
+  @GetMapping("/all")
+  public List<Input> getAll() {
+    return inputServices.getAll();
+  }
+
+  @GetMapping("/last")
+  public Input getLast() {
+    return inputServices.getLastAdded();
   }
 }

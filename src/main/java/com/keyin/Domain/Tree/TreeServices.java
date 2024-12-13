@@ -1,37 +1,51 @@
 package com.keyin.Domain.Tree;
 
-import com.keyin.Domain.Input.InputServices;
+import com.keyin.Domain.Input.Input;
+import com.keyin.Domain.Input.InputRepository;
 import com.keyin.Domain.Node.Node;
 import com.keyin.Domain.Node.NodeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TreeServices {
   private final TreeRepository treeRepository;
-  private final InputServices inputServices;
+  private final InputRepository inputRepository;
   private final NodeServices nodeServices;
 
   @Autowired
-  public TreeServices(TreeRepository treeRepository, InputServices inputServices, NodeServices nodeServices) {
+  public TreeServices(TreeRepository treeRepository, InputRepository inputServices, NodeServices nodeServices) {
     this.treeRepository = treeRepository;
-    this.inputServices = inputServices;
+    this.inputRepository = inputServices;
     this.nodeServices = nodeServices;
   }
 
   public Tree createTreeFromInput(Long inputId) {
-    List<Integer> inputFromDb = inputServices.getInput(inputId).getInputs();
+    Optional<Input> optionalInput = inputRepository.findById(inputId);
+    Input inputFromDb = optionalInput.orElse(null);
     Tree newTree = new Tree();
-    Node treeRoot = newTree.getRoot();
-    for(Integer value : inputFromDb) {
-      Node newNode = new Node();
-      newNode.setValue(value);
-      treeRoot = add(treeRoot, newNode);
+    if(inputFromDb == null) {
+      return newTree;
     }
-    newTree.setRoot(treeRoot);
-    return treeRepository.save(newTree);
+    if (inputFromDb.getTreeFromInput() == null) {
+      List<Integer> values = inputFromDb.getInputs();
+      Node treeRoot = newTree.getRoot();
+      for (Integer value : values) {
+        Node newNode = new Node();
+        newNode.setValue(value);
+        treeRoot = add(treeRoot, newNode);
+      }
+      newTree.setRoot(treeRoot);
+      newTree = treeRepository.save(newTree);
+      inputFromDb.setTreeFromInput(newTree);
+      inputRepository.save(inputFromDb);
+    } else {
+      newTree = inputFromDb.getTreeFromInput();
+    }
+    return newTree;
   }
 
   private Node add(Node root, Node newNode) {
