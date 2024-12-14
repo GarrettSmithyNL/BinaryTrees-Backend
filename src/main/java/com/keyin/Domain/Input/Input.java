@@ -27,6 +27,10 @@ public class Input {
     return postingId;
   }
 
+  public void setPostingId(Long postingId) {
+    this.postingId = postingId;
+  }
+
   public List<Integer> getInputs() {
     return inputs;
   }
