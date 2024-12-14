@@ -10,14 +10,13 @@ public class Node {
   @GeneratedValue(generator = "node_sequence")
   private Long postingId;
 
+  private int value;
+
   @OneToOne
   private Node left;
 
   @OneToOne
   private Node right;
-
-  private int value;
-
 
   public Node() {
     this.left = null;
