@@ -1,5 +1,6 @@
 package com.keyin.Domain.Input;
 
+import com.keyin.Domain.BalancedTree.BalancedTree;
 import com.keyin.Domain.Tree.Tree;
 import jakarta.persistence.*;
 
@@ -19,6 +20,9 @@ public class Input {
   @OneToOne
   private Tree treeFromInput;
 
+  @OneToOne
+  private BalancedTree balancedTreeFromInput;
+
   public Long getPostingId() {
     return postingId;
   }
@@ -37,5 +41,13 @@ public class Input {
 
   public void setTreeFromInput(Tree treeFromInput) {
     this.treeFromInput = treeFromInput;
+  }
+
+  public BalancedTree getBalancedTreeFromInput() {
+    return balancedTreeFromInput;
+  }
+
+  public void setBalancedTreeFromInput(BalancedTree balancedTreeFromInput) {
+    this.balancedTreeFromInput = balancedTreeFromInput;
   }
 }

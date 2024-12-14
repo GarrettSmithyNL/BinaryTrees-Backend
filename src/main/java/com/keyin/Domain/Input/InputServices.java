@@ -1,5 +1,6 @@
 package com.keyin.Domain.Input;
 
+import com.keyin.Domain.BalancedTree.BalancedTreeServices;
 import com.keyin.Domain.Tree.TreeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,19 @@ import java.util.Optional;
 public class InputServices {
   private final InputRepository inputRepository;
   private final TreeServices treeServices;
+  private final BalancedTreeServices balancedTreeServices;
 
   @Autowired
-  public InputServices (InputRepository inputRepository, TreeServices treeServices) {
+  public InputServices (InputRepository inputRepository, TreeServices treeServices, BalancedTreeServices balancedTreeServices) {
     this.inputRepository = inputRepository;
     this.treeServices = treeServices;
+    this.balancedTreeServices = balancedTreeServices;
   }
 
   public Input addInput(Input newInput) {
     Input inputInDb = inputRepository.save(newInput);
     inputInDb.setTreeFromInput(treeServices.createTreeFromInput(inputInDb.getPostingId()));
+    inputInDb.setBalancedTreeFromInput(balancedTreeServices.createBalancedTree(inputInDb.getPostingId()));
     return inputRepository.save(inputInDb);
   }
 
